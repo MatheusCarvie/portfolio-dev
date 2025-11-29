@@ -5,6 +5,8 @@ import { Github, Linkedin, Mail, Send } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -12,10 +14,35 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Mensagem enviada com sucesso! Retornarei em breve.");
-    setFormData({ name: "", email: "", message: "" });
+    if (submitting) return;
+
+    setSubmitting(true);
+
+    try {
+      const url = API_URL + "/mail";
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => "");
+        throw new Error(text || `Status ${res.status}`);
+      }
+
+      toast.success("Mensagem enviada com sucesso! Retornarei em breve.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Erro ao enviar mensagem:", err);
+      toast.error("Falha ao enviar mensagem. Tente novamente mais tarde.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -163,11 +190,23 @@ const Contact = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-primary hover:shadow-glow text-white font-semibold h-12 text-base transition-all duration-300 hover:scale-105"
+                  disabled={submitting}
+                  className={`w-full bg-gradient-primary hover:shadow-glow text-white font-semibold h-12 text-base transition-all duration-300 ${
+                    submitting
+                      ? "opacity-60 cursor-not-allowed hover:scale-100"
+                      : "hover:scale-105"
+                  }`}
                   size="lg"
+                  aria-busy={submitting}
                 >
-                  <Send className="w-5 h-5 mr-2" />
-                  Enviar Mensagem
+                  {submitting ? (
+                    "Enviando..."
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 mr-2" />
+                      Enviar Mensagem
+                    </>
+                  )}
                 </Button>
               </form>
             </div>

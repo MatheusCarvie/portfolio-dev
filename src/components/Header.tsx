@@ -15,6 +15,17 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setIsMobileMenuOpen(false);
@@ -81,8 +92,8 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl md:hidden pt-20">
-          <div className="container mx-auto px-4 py-8">
+        <div className="fixed h-dvh inset-0 z-40 bg-background/98 backdrop-blur-xl md:hidden pt-20">
+          <div className="container mx-auto px-4 py-8 h-full">
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
                 <button
