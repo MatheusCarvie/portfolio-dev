@@ -60,9 +60,9 @@ const About = () => {
           <div className="max-w-4xl mx-auto mb-20">
             <div className="text-lg md:text-xl text-muted-foreground space-y-6 leading-relaxed">
               <p>
-                Sou desenvolvedor fullstack com 5 anos de trajetória na área e 2
-                anos de experiência profissional, focado em backend e na criação
-                de{" "}
+                Me chamo Matheus Carvie, sou desenvolvedor fullstack com 5 anos
+                de trajetória na área e 2 anos de experiência profissional,
+                focado em backend e na criação de{" "}
                 <span className="text-primary font-semibold">
                   sistemas confiáveis
                 </span>

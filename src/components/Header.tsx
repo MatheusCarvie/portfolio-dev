@@ -42,7 +42,7 @@ const Header = () => {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-2xl font-bold font-mono bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
-              &lt;DEV/&gt;
+              &lt;Matheus/&gt;
             </button>
 
             {/* Desktop Navigation */}
