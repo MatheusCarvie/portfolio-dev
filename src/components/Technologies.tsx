@@ -1,11 +1,19 @@
 const technologies = [
-  { name: "GO", category: "Backend", color: "from-green-500 to-green-600" },
+  {
+    name: "GO",
+    category: "Backend",
+    color: "from-green-500 to-green-600",
+  },
   {
     name: "ASP.NET",
     category: "Backend",
     color: "from-green-500 to-green-600",
   },
-  { name: "Java", category: "Backend", color: "from-green-500 to-green-600" },
+  {
+    name: "Spring Boot",
+    category: "Backend",
+    color: "from-green-500 to-green-600",
+  },
   {
     name: "Node.js",
     category: "Backend",
@@ -90,7 +98,7 @@ const Technologies = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {technologies.map((tech, index) => (
               <div
-                key={tech.name}
+                key={index}
                 className="group relative bg-background border border-border rounded-2xl p-6 md:p-8 hover:border-primary/50 hover:shadow-card transition-all duration-300 hover:-translate-y-2 animate-fade-in-up cursor-default"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
